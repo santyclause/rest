@@ -7,6 +7,7 @@ export class MissionsController extends BaseController {
     this.router
       .get('', this.getAllMissions)
       .post('', this.createMission)
+      .put('/:missionId', this.updateMission)
   }
 
   async getAllMissions(request, response, next) {
@@ -23,6 +24,18 @@ export class MissionsController extends BaseController {
       const missionData = request.body;
       const mission = await missionsService.createMission(missionData);
       response.send(mission)
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateMission(request, response, next) {
+    try {
+      const missionId = request.params.missionId;
+      const updateData = request.body;
+      const mission = await missionsService.updateMission(missionId, updateData)
+
+      response.send(mission);
     } catch (error) {
       next(error);
     }

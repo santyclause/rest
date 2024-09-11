@@ -25,6 +25,16 @@ class MissionsService {
 
     return mission;
   }
+
+  async updateMission(missionId, updateData) {
+    const mission = await dbContext.Missions.findById(missionId);
+    mission.completed = updateData.completed ?? false;
+    mission.save();
+    await mission.populate('rat', '-name -picture');
+    await mission.populate('location');
+
+    return mission;
+  }
 }
 
 export const missionsService = new MissionsService();
