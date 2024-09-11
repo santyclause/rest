@@ -7,7 +7,7 @@ export const MissionSchema = new Schema({
   year: { type: String, required: true },
   locationId: { type: Schema.ObjectId, required: true },
   ratId: { type: Schema.ObjectId, required: true },
-  completed: { type: Boolean, required: true }
+  completed: { type: Boolean, required: true, default: false }
 }, { toJSON: { virtuals: true } })
 
 MissionSchema.virtual('rat', {
